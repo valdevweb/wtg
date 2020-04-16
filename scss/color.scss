@@ -1,0 +1,65 @@
+$body-bg: #00222e;
+$body-color: #fff;
+$blue: #00a4df;
+
+
+$black:#000;
+$black-main: #00222e;
+
+$black-900: #000507;
+$black-800: #00171f;
+$black-700:#003042;
+$black-600:#003f55;
+$black-500:#004d69;
+$black-400:#005c7c;
+$black-300:#006a90;
+$black-200:#0079a4;
+$black-100:#0087b7;
+
+%bg{
+    background-color: #000;
+}
+.black{
+    @extend %bg;
+    background-color: $black;
+}
+.black-900{
+    @extend %bg;
+    background-color: $black-900;
+}
+.black-800{
+    @extend %bg;
+    background-color: $black-800;
+}
+.black-700{
+    @extend %bg;
+    background-color: $black-700;
+}
+.black-600{
+    @extend %bg;
+    background-color: $black-600;
+}
+.black-500{
+    @extend %bg;
+    background-color: $black-500;
+}
+.black-400{
+    @extend %bg;
+    background-color: $black-400;
+}
+.black-300{
+    @extend %bg;
+    background-color: $black-300;
+}
+.black-200{
+    @extend %bg;
+    background-color: $black-200;
+}
+.black-100{
+    @extend %bg;
+    background-color: $black-100;
+}
+.black-main{
+    @extend %bg;
+    background-color: $black-main;
+}

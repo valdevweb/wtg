@@ -1,0 +1,31 @@
+
+
+$font-family-sans-serif:      'baloo_paaji_2medium',-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+
+fieldset{
+  border:1px solid $black !important;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+  border-radius:8px;
+  padding: 20px !important;
+
+}
+legend{
+  display: inline !important;
+  width: auto !important;
+  font-size: 1rem !important;
+  color: #fff !important;
+  padding: 5px 0!important;
+  border-radius: 6px !important;
+}
+
+
+.hidden{
+  display:none;
+}
+.shown{
+  display:block;
+}
+
+

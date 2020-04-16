@@ -1,0 +1,48 @@
+// ligne centré de petite taille sous titre
+.sub-title{
+  padding: 20px 0 20px 0;
+  color:#fff;
+  text-transform: uppercase;
+}
+h1.sub-title{
+  padding-bottom: 15px !important;
+}
+.sub-title:after{
+  position: absolute;
+  left: calc(50% - 35px);
+  display: block;
+  width: 70px;
+  border-bottom: 2px solid  $blue;
+  content: "";
+  padding-top: 10px;
+}
+
+.underline-anim{
+    font-family: 'baloo_paaji_2regular';
+  
+}
+// lgne qui avance vers la droite
+.underline-anim::after{
+  content: '';
+  display: block;
+  height:3px;
+  width:0;
+  background-color: #fff;
+  margin-top: 15px;
+  position: absolute;
+  left: calc(50% - 35px);
+  transform-origin: left;
+  animation-timing-function: ease-in-out;
+  -webkit-animation: grow-right 0.5s;
+  -moz-animation:    grow-right 0.5s;
+  -o-animation:      grow-right 0.5s;
+  animation:         grow-right 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes grow-right {
+  100% {
+    width: 5%;
+  // left: calc(50% - 35px);
+
+  }
+}

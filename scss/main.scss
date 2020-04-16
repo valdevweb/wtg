@@ -1,12 +1,13 @@
 
 
-$body-bg: #00222e;
-$body-color: #fff;
-$blue: #00a4df;
+@import "color.scss";
+@import "font.scss";
+@import "commun.scss";
+@import "tools.scss";
 
-$gray-800: #00222e!default;
 
-
+$input-color:$black-100;
+$input-bg: $black-800;
+$input-border-color: $black;
 @import "bootstrap/scss/bootstrap.scss";
 
-@import "commun.scss";

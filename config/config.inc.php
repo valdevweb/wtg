@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 define("SITE_NAME", "WTG France");
 define("ROOT_PATH", "http://217.160.170.62:81/wtg/");
 define("DIR_NOSESSION", "http://217.160.170.62:81/wtg/index.php");
