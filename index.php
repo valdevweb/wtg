@@ -1,6 +1,6 @@
 
 <?php
-require('config/autoload.php');
+require('config/config.inc.php');
 
 // if(!isset($_SESSION['id'])){
 // 	echo "pas de variable session";
@@ -11,15 +11,7 @@ require('config/autoload.php');
 //----------------------------------------------------------------
 $pageCss=explode(".php",basename(__file__));
 $pageCss=$pageCss[0];
-$cssFile=ROOT_PATH ."/css/".$pageCss.".css";
-
-
-
-
-
-
-
-
+$cssFile=ROOT_PATH ."css/".$pageCss.".css";
 
 //------------------------------------------------------
 //			FONCTION
@@ -30,6 +22,42 @@ $cssFile=ROOT_PATH ."/css/".$pageCss.".css";
 //------------------------------------------------------
 $errors=[];
 $success=[];
+ //------------------------------------------------------
+//			traitement
+//------------------------------------------------------
+if(isset($_POST['submit'])){
+
+	if(empty($_POST['pseudo'])||empty($_POST['pwd'])){
+		$errors[]="Veuillez saisir votre GT/PSN et votre mot de passe";
+	}
+	if(empty($errors)){
+		$req=$pdo->prepare("SELECT * FROM pilotes WHERE pseudo= :pseudo");
+		$req->execute([
+			':pseudo'	=>trim($_POST['pseudo'])
+		]);
+		$data=$req->fetch(PDO::FETCH_ASSOC);
+		
+
+		if($data){
+			if(password_verify( $_POST['pwd'],$data['pwd'])){
+				$success[]="connexion réussie";
+				session_start();
+				$_SESSION['id']=$data['id'];
+				unset($_POST);
+				header("Location:pilote\pilote-dashboard.php",true,303);
+			}else{
+				$errors[]="Mot de passe incorrect" .$data['pwd'];
+			}
+		}else{
+			$errors[]="Ce GT/PSN n'existe pas";
+		}
+	}
+
+
+}
+
+
+
 //------------------------------------------------------
 //			VIEW
 //------------------------------------------------------
@@ -39,18 +67,67 @@ include('view/_head.php');
 <!--********************************
 DEBUT CONTENU CONTAINER
 *********************************-->
-<div class="container-fluid">
-	<h1 class="text-primary">Main title</h1>
+<div class="container-fluid h-100 justify-content-center">
+	<div class="row justify-content-center align-middle h-100">
+		<div class="col align-self-center">
+			<div class="row mb-md-5 pb-md-5">
+				<div class="col pt-3 pl-5 mb-3 text-center">
+					<h1 class="underline-anim">WTG France - Bienvenue</h1>			
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					<?php
+					include('view/_errors.php');
+					?>
+				</div>
+			</div>
+			<div class="row mt-md-5 pt-md-5">
+				
+				<div class="col-auto mx-auto">
+					<div class="card bg-dark justify-content-center" style="width: 300px;">
+						<img src="img/logo/wtg-300.png" class="card-img-top" alt="...">
+						<div class="card-body">
+							<form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+								<div class="row">
+									<div class="col">
+										<div class="form-group">
+											<label for="pseudo">GT/PSN</label>
+											<input type="text" class="form-control" name="pseudo" id="pseudo">
+										</div>
+										<div class="form-group">
+											<label for="pwd">Mot de passe</label>
+											<input type="password" class="form-control" name="pwd" id="pwd">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-auto mx-auto">
+										<button class="btn btn-primary" name="submit">Login</button>
+									</div>
+								</div>
+							</form>
+							<hr>
+							<div class="row">
+								<div class="col">
+									<a href="pilote/registration.php" class="card-link">S'inscrire</a>
+								</div>
+								<div class="col-auto  text-right">
+									<a href="#" class="card-link">Mot de passe oublié</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-	<div class="row">
-		<div class="col">
-			<?php
-			include('view/_errors.php');
-			?>
+
+			</div>
 		</div>
 	</div>
 
-<div class="btn btn-primary">test</div>
+
+
 	<!-- ./container -->
 </div>
 
