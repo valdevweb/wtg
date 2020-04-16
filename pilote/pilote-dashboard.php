@@ -2,10 +2,10 @@
 <?php
 require('../config/autoload.php');
 
-// if(!isset($_SESSION['id'])){
-// 	echo "pas de variable session";
-// 	header('Location:'. DIR_NOSESSION);
-// }
+if(!isset($_SESSION['id'])){
+	echo "pas de variable session";
+	header('Location:'. DIR_NOSESSION);
+}
 //------------------------------------------------------
 //			css dynamique
 //----------------------------------------------------------------
