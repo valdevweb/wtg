@@ -7,7 +7,7 @@ require('../config/autoload.php');
 //----------------------------------------------------------------
 $pageCss=explode(".php",basename(__file__));
 $pageCss=$pageCss[0];
-$cssFile=ROOT_PATH ."/css/".$pageCss.".css";
+$cssFile=ROOT_PATH ."css/".$pageCss.".css";
 
 
 include('../Class/PiloteManager.php');
