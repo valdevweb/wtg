@@ -154,7 +154,7 @@ DEBUT CONTENU CONTAINER
 			<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
 				<div class="row">
 					<div class="col-md-4 align-self-center text-center">
-						<img  class="img-fluid" src="../img/logo/wtg-400.png">
+						<img  class="img-fluid" src="../img/logo/wtg-1000.jpg" style="width: 400px;height:auto">
 					</div>
 					<div class="col">
 						<fieldset>
