@@ -43,6 +43,7 @@ if(isset($_POST['submit'])){
 				$success[]="connexion réussie";
 				session_start();
 				$_SESSION['id']=$data['id'];
+				$_SESSION['pseudo']=$data['pseudo'];
 				unset($_POST);
 				header("Location:pilote\pilote-dashboard.php",true,303);
 			}else{
@@ -70,9 +71,9 @@ DEBUT CONTENU CONTAINER
 <div class="container-fluid h-100 justify-content-center">
 	<div class="row justify-content-center align-middle h-100">
 		<div class="col align-self-center">
-			<div class="row mb-md-5 pb-md-5">
-				<div class="col pt-3 pl-5 mb-3 text-center">
-					<h1 class="underline-anim">WTG France - Bienvenue</h1>			
+			<div class="row mb-md-3 mt-5">
+				<div class="col pt-3 mb-3 text-center">
+					<h1 class="underline-anim">Bienvenue</h1>			
 				</div>
 			</div>
 			
@@ -83,14 +84,19 @@ DEBUT CONTENU CONTAINER
 					?>
 				</div>
 			</div>
-			<div class="row mt-md-5 pt-md-5">
+			<div class="row">
+				<div class="col-auto mx-auto">
+						<img src="img/logo/wtg-1000.jpg" class="card-img-top" style="width: 300px; height:auto">
+					
+				</div>
+			</div>
+			<div class="row mt-md-5">
 				
 				<div class="col-auto mx-auto">
-					<div class="card bg-dark justify-content-center" style="width: 300px;">
-						<img src="img/logo/wtg-300.png" class="card-img-top" alt="...">
+					<div class="card bg-dark justify-content-center" style="width: 400px;">
 						<div class="card-body">
 							<form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-								<div class="row">
+								<div class="row px-5">
 									<div class="col">
 										<div class="form-group">
 											<label for="pseudo">GT/PSN</label>
@@ -104,7 +110,7 @@ DEBUT CONTENU CONTAINER
 								</div>
 								<div class="row">
 									<div class="col-auto mx-auto">
-										<button class="btn btn-primary" name="submit">Login</button>
+										<button class="btn btn-primary" name="submit">Se connecter</button>
 									</div>
 								</div>
 							</form>
