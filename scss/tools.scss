@@ -30,7 +30,8 @@ h1.sub-title{
   background-color: #fff;
   margin-top: 15px;
   position: absolute;
-  left: calc(50% - 35px);
+  // left: calc(50% - 65px);
+  left: calc(50% - 33px);
   transform-origin: left;
   animation-timing-function: ease-in-out;
   -webkit-animation: grow-right 0.5s;
@@ -41,7 +42,7 @@ h1.sub-title{
 }
 @keyframes grow-right {
   100% {
-    width: 5%;
+    width: 66px;
   // left: calc(50% - 35px);
 
   }
