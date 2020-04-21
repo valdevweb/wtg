@@ -102,6 +102,28 @@ legend {
   display: block;
 }
 
+.banner-g {
+  width: 70px;
+  height: 35px;
+  box-sizing: border-box;
+  background: url(../img/tools/banner-30h.svg);
+  background-size: 70px 35px;
+  background-repeat: no-repeat;
+}
+
+.banner-c {
+  width: 70px;
+  height: 35px;
+  box-sizing: border-box;
+  background: url(../img/tools/bannerfull-30h.svg);
+  background-size: 70px 35px;
+  background-repeat: no-repeat;
+}
+
+th.banner-size {
+  width: 70px;
+}
+
 .sub-title {
   padding: 20px 0 20px 0;
   color: #fff;
@@ -10024,6 +10046,9 @@ h3 {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+th {
+  font-weight: 400;
 }
 
 /*# sourceMappingURL=main.css.map */
