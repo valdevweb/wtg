@@ -149,14 +149,16 @@ DEBUT CONTENU CONTAINER
 			?>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col">
+	<div class="row mt-5">
+		<div class="col align-self-center">
 			<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
 				<div class="row">
-					<div class="col-md-4 align-self-center text-center">
-						<img  class="img-fluid" src="../img/logo/wtg-1000.jpg" style="width: 400px;height:auto">
+					<div class="col-lg-3 align-self-center mx-auto text-center">
+						<img  class="img-fluid text-center" src="../img/logo/wtg-1000.jpg" style="width: 300px;height:auto">
 					</div>
-					<div class="col">
+					<div class="col-xl-1"></div>
+
+					<div class="col mx-auto">
 						<fieldset>
 							<legend>Informations Pilote : </legend>
 							<div class="row">
@@ -273,7 +275,9 @@ DEBUT CONTENU CONTAINER
 							</div>
 						</fieldset>
 					</div>
-					<div class="col-md-4"></div>
+					<div class="col-xl-1"></div>
+
+					<div class="col-lg-3"></div>
 
 				</div>
 
