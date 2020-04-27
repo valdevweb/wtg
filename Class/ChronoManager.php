@@ -36,6 +36,15 @@ class ChronoManager
 		return $datas;
 	}
 
+	public function getListChronoCircuitPseudo(){
+		$datas=$this->getListChronoCircuit();
+		if(empty($datas)){
+			
+		}
+
+	}
+
+
 	public function getPointChrono($idSaison,$idDrapeau){
 
 		$req=$this->pdo->prepare("SELECT * FROM chronos	WHERE id_pilote= :id_pilote AND id_saison= :id_saison AND id_drapeau = :id_drapeau");

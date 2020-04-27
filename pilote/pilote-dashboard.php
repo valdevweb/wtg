@@ -19,6 +19,10 @@ include '../Class/PiloteManager.php';
 
 $chronoManager=new ChronoManager($pdo,$_SESSION['id']);
 $chronos=$chronoManager->getListChronoCircuit();
+// si pas de chono pour l'id, vérifier si on a un chrono pour le pseudo
+//si oui, c'est que c'est sa 1ere connexion donc  on doit mettre à jour la table chrono avec l'id du pilote
+
+
 $circuits=$chronoManager->getSaisonCircuit(1);
 $nomDrapeau=Drapeaux::arrayDrapeauName($pdo);
 $imgDrapeau=Drapeaux::arrayDrapeauImg($pdo);
@@ -171,10 +175,8 @@ DEBUT CONTENU CONTAINER
 			</div>
 		</div>
 
-		Vitesse xxx Pilotes= nb de pilotes inscrit ?<br>
-		pré qualification ou qualifié => filemaker ?<br>
-		Classement console du classement général => filemaker ?<br>
-		Classement moyenne du classement général => filemaker ?<br>
+		Vitesse xxx Pilotes= nb de pilotes inscrit <br>
+	
 		<!-- chronos en cours -->
 		
 	</div>
