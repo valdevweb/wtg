@@ -1,11 +1,11 @@
 
 <?php
 require('../config/autoload.php');
+if(!isset($_SESSION['id']) || ($_SESSION['authorized'] !=1)){
+	echo "pas de variable session";
+	header('Location:'. DIR_NOSESSION);
+}
 
-// if(!isset($_SESSION['id'])){
-// 	echo "pas de variable session";
-// 	header('Location:'. DIR_NOSESSION);
-// }
 //------------------------------------------------------
 //			css dynamique
 //----------------------------------------------------------------
@@ -34,7 +34,7 @@ $success=[];
 //			VIEW
 //------------------------------------------------------
 include('../view/_head.php');
-include('../view/_navbar.php');
+
 ?>
 <!--********************************
 DEBUT CONTENU CONTAINER
