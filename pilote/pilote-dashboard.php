@@ -6,9 +6,7 @@ if(!isset($_SESSION['id']) || ($_SESSION['authorized'] !=1)){
 	echo "pas de variable session";
 	header('Location:'. DIR_NOSESSION);
 }
-	echo "<pre>";
-	print_r($_SESSION);
-	echo '</pre>';
+
 
 //------------------------------------------------------
 //			css dynamique

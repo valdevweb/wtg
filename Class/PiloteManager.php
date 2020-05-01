@@ -24,15 +24,7 @@ class PiloteManager
 		return $data;
 	}
 
-	public function getListAges(){
-		$req=$this->pdo->query("SELECT * FROM ages");
-		
-		$data=$req->fetchAll(PDO::FETCH_ASSOC);
-		if(empty($data)){
-			return "";
-		}
-		return $data;
-	}
+
 
 	public function pseudoUniq($pseudo){
 		$req=$this->pdo->prepare("SELECT pseudo FROM pilotes WHERE pseudo= :pseudo");
@@ -45,15 +37,7 @@ class PiloteManager
 		}
 		return false;
 	}
-	public function getListVersions(){
-		$req=$this->pdo->query("SELECT * FROM versions");
-		
-		$data=$req->fetchAll(PDO::FETCH_ASSOC);
-		if(empty($data)){
-			return "";
-		}
-		return $data;
-	}
+
 	public function getListPeriphs(){
 		$req=$this->pdo->query("SELECT * FROM periphs");
 		
