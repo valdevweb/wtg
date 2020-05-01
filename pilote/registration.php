@@ -11,6 +11,7 @@ $cssFile=ROOT_PATH ."css/".$pageCss.".css";
 
 
 include('../Class/PiloteManager.php');
+include('../Class/Drapeaux.php');
 include('../function/form.fn.php');
 
 
@@ -27,19 +28,22 @@ include('../function/form.fn.php');
 //------------------------------------------------------
 
 function createPilote($pdo){
-	$req=$pdo->prepare("INSERT INTO pilotes (pseudo, pwd, email, id_age, console, id_version, id_periph, id_marque, id_modele, id_ecurie_pref, date_insert) VALUES
-		(:pseudo, :pwd, :email, :id_age, :console, :id_version, :id_periph, :id_marque, :id_modele, :id_ecurie_pref, :date_insert)");
+	$req=$pdo->prepare("INSERT INTO pilotes (pseudo, pwd, email, date_birth, men, console, f2019, f2020, id_periph, id_marque, id_modele, id_ecurie_pref, id_pays, date_insert) VALUES
+		(:pseudo, :pwd, :email, :date_birth, :men, :console, :f2019, :f2020, :id_periph, :id_marque, :id_modele, :id_ecurie_pref, :id_pays, :date_insert)");
 	$req->execute([
 		':pseudo'	=>trim($_POST['pseudo']),
 		':pwd'	=>password_hash(trim($_POST['pwd']),PASSWORD_DEFAULT),
 		':email'	=>trim($_POST['email']),
-		':id_age'	=>$_POST['age-select'],
+		':date_birth'	=>$_POST['birth'],
+		':men'			=>$_POST['men'],
 		':console'	=>$_POST['console'],
-		':id_version'	=>$_POST['version'],
+		':f2019'	=>(isset($_POST['f2019']) && $_POST['f2019']==1)? 1 :0,
+		':f2020'	=>(isset($_POST['f2020']) && $_POST['f2020']==1)? 1 :0,
 		':id_periph'	=>$_POST['periph'],
 		':id_marque'	=> isset($_POST['marque']) && !empty($_POST['marque']) ? $_POST['marque'] : NULL,
 		':id_modele'	=>isset($_POST['model']) && !empty($_POST['model']) ? $_POST['model'] : NULL,
 		':id_ecurie_pref'	=>$_POST['ecurie'],
+		':id_pays'	=>$_POST['pays'],
 		':date_insert'		=>date('Y-m-d H:i:s')
 	]);
 
@@ -61,25 +65,30 @@ $success=[];
 $pageTitle="Inscription";
 
 $piloteManager= new PiloteManager($pdo);
-$listAge=$piloteManager->getListAges();
+
 $listVersion=$piloteManager->getListVersions();
 $listPeriph=$piloteManager->getListPeriphs();
 $listMarque=$piloteManager->getListMarques();
 $listEcuriesP=$piloteManager->getListEcuriesPref();
+$listDrapeau=Drapeaux::getListDrapeau($pdo);
 
 
 //------------------------------------------------------
 //			TRAITEMENT
 //------------------------------------------------------
 if(isset($_POST['submit'])){
-	$fields=['pseudo'=>"saisir un pseudo", 'pwd' =>"saisir un mot de passe",'email'=>"saisir un email", 'age-select' =>"sélectionner une tranche d'âge",'console' =>"séléctionner un modèle de console", 'version'=>"sélectionner une version de jeu", 'periph' => "sélectionner un type de périphérique"];
+	$fields=['pseudo'=>"saisir un pseudo", 'pwd' =>"saisir un mot de passe",'email'=>"saisir un email", 'birth' =>"sélectionner une date de naissance",'console' =>"séléctionner un modèle de console", 'men' => "sélectionner un sexe", 'periph' => "sélectionner un type de périphérique", 'pays' => "sélectionner un pays"];
+// version de jeu -> tester que un des 2 champs est égal à un
+	if(!isset($_POST['f2019']) && !isset($_POST['f2020'])){
+		$errors[]="Vous devez sélectionner au moins une version de jeu";
+	}
 
 	foreach ($fields as $key => $field) {
 
 		if (!isset($_POST[$key]) || (isset($_POST[$key]) && trim($_POST[$key])=="")) {
 			$errors[]="Vous devez " .$field;			
 		}else{
-			$success[]="OK " .$field;	
+			// $success[]="OK " .$field;	
 		}
 	}	
 	// qd periph selectionné et = à volant cad 2, modele et marque doient être saisis
@@ -115,7 +124,7 @@ if(isset($_POST['submit'])){
 		if(!$inserted){
 			unset($_POST);
 			$successQ="?registered";
-			header("Location: ../index.php".$successQ,true,303);
+			header("Location:".$_SERVER['PHP_SELF'].$successQ,true,303);
 
 		}else{
 			$errors[]= "une erreur est survenue, impossible d'enregistrer votre compte";
@@ -124,6 +133,12 @@ if(isset($_POST['submit'])){
 
 	}
 }
+
+if(isset($_GET['registered'])){
+
+	$success[]= "Votre demande d'inscription a bien été prise en compte. Vous receverez une réponse par mail dans les 48 h";
+}
+
 //------------------------------------------------------
 //			VIEW
 //------------------------------------------------------
@@ -187,16 +202,39 @@ DEBUT CONTENU CONTAINER
 									<div id="email-helper"></div>
 
 								</div>
+								<div class="col">
+									<label for="marque">Pays :</label>
+									<select class="form-control" name="pays" id="pays-select">
+										<option value="">Sélectionner</option>
+										<?php foreach ($listDrapeau as $key => $drapeau): ?>
+											<option value="<?=$drapeau['id']?>" <?= checkSelected($drapeau['id'],'drapeau')?> required><?= ucfirst($drapeau['drapeau'])?></option>											
+										<?php endforeach ?>
+									</select>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="age-select">Age :</label>
-								<select class="form-control" name="age-select" id="age-select" required>
-									<option value="">Sélectionner</option>
-									<?php foreach ($listAge as $key => $age): ?>
-										<option value="<?=$age['id']?>" <?= checkSelected($age['id'],'age-select')?> > <?=$age['age']?></option>
-									<?php endforeach ?>
-								</select>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">								
+										<label for="birth">Date de naissance :</label>
+										<input type="date" class="form-control" name="birth" id="birth" value="<?= isset($_POST['birth']) ? $_POST['birth'] :""?>" required>
+
+									</div>
+								</div>
+								<div class="col">
+									Sexe :<br>
+									<div class="col ">
+											<div class="form-check">
+												<input class="form-check-input" type="radio" value="1" id="" name="men" <?= checkChecked(1,'men')?> required>
+												<label class="form-check-label" for="">Homme</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" value="0" id="" name="men" <?= checkChecked(0,'men')?> required>
+												<label class="form-check-label" for="">Femme</label>
+											</div>
+										</div>
+								</div>
 							</div>
+
 							<div class="form-group">
 								<label for="ecurie">Ecurie F1 préféré :</label>
 								<select class="form-control" name="ecurie" id="ecurie" required>
@@ -225,16 +263,22 @@ DEBUT CONTENU CONTAINER
 								</div>
 							</div>
 							<div id="jeu" class="mt-3">
-								Version :<br>
+								Versions :<br>
 								<div class="row pl-5">
-									<?php foreach ($listVersion as $key => $version): ?>
-										<div class="col ">
-											<div class="form-check">
-												<input class="form-check-input" type="radio" value="<?=$version['id']?>" <?= checkChecked($version['id'],'version')?> id="version<?=$version['id']?>" name="version" required>
-												<label class="form-check-label" for="version<?=$version['id']?>"><?=$version['version']?></label>
-											</div>
+									
+									<div class="col ">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="1" id="" name="f2019" <?= checkChecked("1",'f2019')?>>
+											<label class="form-check-label" for="f2019">F1 2019</label>
 										</div>
-									<?php endforeach ?>									
+									</div>
+									<div class="col ">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="1" id="" name="f2020" <?= checkChecked("1",'f2020')?>>
+											<label class="form-check-label" for="f2020">F1 2020</label>
+										</div>
+									</div>
+
 								</div>
 							</div>
 							<div id="periph"  class="my-3">

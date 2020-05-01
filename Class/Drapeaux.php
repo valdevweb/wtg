@@ -14,5 +14,9 @@ class Drapeaux
 		$req=$pdo->query("SELECT id,img FROM drapeaux ORDER BY drapeau");
 		return $req->fetchAll(PDO::FETCH_KEY_PAIR);
 	}
+	public static function getListDrapeau($pdo){
+		$req=$pdo->query("SELECT * FROM drapeaux ORDER BY drapeau");		
+		return $req->fetchAll(PDO::FETCH_ASSOC);
+	}
 }
 

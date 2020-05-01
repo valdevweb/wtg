@@ -44,6 +44,7 @@ if(isset($_POST['submit'])){
 				session_start();
 				$_SESSION['id']=$data['id'];
 				$_SESSION['pseudo']=$data['pseudo'];
+				$_SESSION['authorized']=$data['authorized'];
 				unset($_POST);
 				header("Location:pilote\pilote-dashboard.php",true,303);
 			}else{

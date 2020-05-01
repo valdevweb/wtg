@@ -8,9 +8,12 @@ class Pilote
 	private $pseudo;
 	private $pwd;
 	private $email;
-	private $age;
+	private $dateBirth;
+	private $men;
 	private $console;
-	private $version;
+	private $f2019;
+	private $f2020;
+	private $idPays;	
 	private $periph;
 	private $marque;
 	private $modele;
