@@ -41,7 +41,7 @@ DEBUT CONTENU CONTAINER
 *********************************-->
 <div class="container-fluid">
 	<div class="row">
-		<div class="col pt-3 pl-5 mb-3 text-center">
+		<div class="col pt-3  mb-3 text-center">
 			<h1 class="underline-anim">WTG France - Bienvenue</h1>			
 		</div>
 	</div>
